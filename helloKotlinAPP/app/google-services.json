@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "663061881859",
+    "project_id": "hellokotlinapp-81023",
+    "storage_bucket": "hellokotlinapp-81023.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:663061881859:android:23057adbe361b20dcada36",
+        "android_client_info": {
+          "package_name": "com.example.hellokotlinapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvbUG8h6OpJkvE4eGFbCMZHBH3XmglYFQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

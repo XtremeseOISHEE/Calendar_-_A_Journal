@@ -1,12 +1,22 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+// Top-level build file
 plugins {
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.kotlin.android) apply false
-    kotlin("jvm")
+
 }
-dependencies {
-    implementation(kotlin("stdlib"))
-}
-repositories {
+
+/*repositories {
+    google()
     mavenCentral()
+    gradlePluginPortal()
+}*/
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath("com.google.gms:google-services:4.4.2") // latest stable
+    }
 }
+

@@ -1,3 +1,29 @@
 <resources>
     <string name="app_name">helloKotlinAPP</string>
+
+
+    <string name="email_or_username">Email or Username</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="full_name">Full Name</string>
+    <string name="username">Username</string>
+    <string name="email">Email</string>
+    <string name="birth_date">Birth Date</string>
+
+    <string name="sign_up">Sign Up</string>
+    <string name="create_event_screen">Create Event Screen</string>
+    <string name="event_title">Event Title</string>
+    <string name="event_date">Event Date</string>
+    <string name="event_time">Event Time</string>
+    <string name="save_event">Save</string>
+    <string name="create_journal_screen">Create Journal Screen</string>
+    <string name="journal_hint">Write your journal here..</string>
+    <string name="image_preview">Image Preview</string>
+    <string name="attach_image">Attach Image</string>
+    <string name="save">Save</string>
+    <string name="mood_happy">Happy</string>
+    <string name="mood_sad">Sad</string>
+    <string name="mood_calm">Calm</string>
+    <string name="mood_angry">Angry</string>
+    <string name="mood_excited">Excited</string>
 </resources>
