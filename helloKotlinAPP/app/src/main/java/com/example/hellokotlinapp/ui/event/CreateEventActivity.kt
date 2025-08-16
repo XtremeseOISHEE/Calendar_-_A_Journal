@@ -1,7 +1,6 @@
 package com.example.hellokotlinapp.ui.event
 
-
-
+import android.util.Log
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Build
@@ -40,16 +39,18 @@ class CreateEventActivity : AppCompatActivity() {
         b = ActivityCreateEventBinding.inflate(layoutInflater)
         setContentView(b.root)
 
+        // Date picker
         b.etDate.setOnClickListener {
             val c = Calendar.getInstance()
             DatePickerDialog(this, { _, y, m, d ->
-                b.etDate.setText(String.format("%04d-%02d-%02d", y, m+1, d))
+                b.etDate.setText(String.format("%04d-%02d-%02d", y, m + 1, d))
                 pickedCalendar.set(Calendar.YEAR, y)
                 pickedCalendar.set(Calendar.MONTH, m)
                 pickedCalendar.set(Calendar.DAY_OF_MONTH, d)
             }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH)).show()
         }
 
+        // Time picker
         b.etTime.setOnClickListener {
             val c = Calendar.getInstance()
             TimePickerDialog(this, { _, h, min ->
@@ -61,19 +62,21 @@ class CreateEventActivity : AppCompatActivity() {
             }, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), true).show()
         }
 
+        // Save button click
         b.btnSave.setOnClickListener {
             val title = b.etTitle.text.toString().trim()
             val date = b.etDate.text.toString().trim()
             val time = b.etTime.text.toString().trim()
             val trigger = pickedCalendar.timeInMillis
 
-            if(title.isEmpty() || date.isEmpty() || time.isEmpty()){
+            if (title.isEmpty() || date.isEmpty() || time.isEmpty()) {
                 Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
+            // ✅ Use FirebaseAuth UID for userId
             val entity = EventEntity(
-                userId = "", // provider fills this in EventViewModel/Repository
+                userId = auth.currentUser?.uid ?: "local", // IMPORTANT: Firebase UID
                 title = title,
                 dateIso = date,
                 timeIso = time,
@@ -83,11 +86,10 @@ class CreateEventActivity : AppCompatActivity() {
             vm.addEvent(entity) {
                 // schedule notification
                 scheduleReminder(this, trigger, title)
-
+                Log.d("CreateEvent", "Event added: $entity")
                 Toast.makeText(this, "Event saved & reminder set!", Toast.LENGTH_SHORT).show()
-                finish() // go back to EventListActivity
+                finish() // back to EventListActivity
             }
         }
-
     }
 }

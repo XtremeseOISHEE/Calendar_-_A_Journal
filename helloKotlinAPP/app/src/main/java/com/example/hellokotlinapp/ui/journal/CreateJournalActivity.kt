@@ -1,6 +1,5 @@
 package com.example.hellokotlinapp.ui.journal
 
-
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -18,6 +17,7 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 
 class CreateJournalActivity : AppCompatActivity() {
+
     private lateinit var b: ActivityCreateJournalBinding
     private val auth by lazy { FirebaseAuth.getInstance() }
     private val appDb by lazy { AppDatabase.get(this) }
@@ -45,9 +45,8 @@ class CreateJournalActivity : AppCompatActivity() {
         b = ActivityCreateJournalBinding.inflate(layoutInflater)
         setContentView(b.root)
 
-        // 5 moods (emoji labels in a spinner or radio group)
-        val moods = listOf(Mood.HAPPY, Mood.SAD, Mood.CALM, Mood.ANGRY, Mood.EXCITED)
-        b.moodGroup.check(b.rbHappy.id) // default
+        // default mood
+        b.moodGroup.check(b.rbHappy.id)
 
         b.btnAttach.setOnClickListener {
             pickImage.launch(arrayOf("image/*"))
@@ -64,7 +63,7 @@ class CreateJournalActivity : AppCompatActivity() {
             }
 
             val entity = JournalEntity(
-                userId = "",
+                userId = auth.currentUser?.uid ?: "local",
                 text = text,
                 imageUri = pickedImageUri?.toString(),
                 mood = mood

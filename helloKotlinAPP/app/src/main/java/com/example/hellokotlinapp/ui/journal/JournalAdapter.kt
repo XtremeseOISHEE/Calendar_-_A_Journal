@@ -1,15 +1,15 @@
 package com.example.hellokotlinapp.ui.journal
 
-
-
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hellokotlinapp.R
-
-class JournalAdapter(private val journals: List<String>) :
+import com.example.hellokotlinapp.data.local.JournalEntity
+import java.text.SimpleDateFormat
+import java.util.*
+class JournalAdapter(private var journals: List<JournalEntity>) :
     RecyclerView.Adapter<JournalAdapter.JournalViewHolder>() {
 
     inner class JournalViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -24,9 +24,20 @@ class JournalAdapter(private val journals: List<String>) :
     }
 
     override fun onBindViewHolder(holder: JournalViewHolder, position: Int) {
-        holder.tvTitle.text = journals[position]
-        holder.tvDate.text = "Date info here" // you can replace with real date
+        val journal = journals[position]
+        holder.tvTitle.text = journal.text.take(30) + if (journal.text.length > 30) "..." else ""
+
+        // Convert timestamp to readable date
+        holder.tvDate.text = journal.createdAt?.let {
+            val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
+            sdf.format(Date(it))
+        } ?: "No date"
     }
 
     override fun getItemCount(): Int = journals.size
+
+    fun updateList(newJournals: List<JournalEntity>) {
+        journals = newJournals
+        notifyDataSetChanged()
+    }
 }
